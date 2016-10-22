@@ -12,7 +12,7 @@ RUN apk add --no-cache --virtual=.build-dependencies wget ca-certificates && \
     rm "/tmp/scala-${SCALA_VERSION}/bin/"*.bat && \
     mv "/tmp/scala-${SCALA_VERSION}/bin" "/tmp/scala-${SCALA_VERSION}/lib" "${SCALA_HOME}" && \
     ln -s "${SCALA_HOME}/bin/"* "/usr/bin/" && \
-    sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
+    sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)" && \
     apk del .build-dependencies && \
     rm -rf "/tmp/"*
 
