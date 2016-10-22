@@ -17,9 +17,7 @@ RUN apk add --no-cache --virtual=.build-dependencies wget ca-certificates && \
 
 RUN apk add --no-cache --virtual=.build-dependencies curl zsh git && \
     cd "/tmp" && \
-    sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)" && \
-    apk del .build-dependencies && \
-    rm -rf "/tmp/"*
+    sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
 
 
 RUN mkdir /home/scala
