@@ -4,6 +4,10 @@ ENV SCALA_VERSION=2.12.0-M5 \
     SCALA_HOME=/usr/share/scala \
     SCALA_PROJECT=/home/scala
 
+ENV PATH="${SCALA_PROJECT}:${PATH}"
+
+RUN echo $PATH
+
 ADD ./ "${SCALA_PROJECT}"
 
 # NOTE: bash is used by scala/scalac scripts, and it cannot be easily replaced with ash.
@@ -21,16 +25,16 @@ RUN apk add --no-cache bash wget ca-certificates curl zsh git nano && \
 RUN cd "${SCALA_PROJECT}" && \
     wget -O sbt-launch.jar https://repo.typesafe.com/typesafe/ivy-releases/org.scala-sbt/sbt-launch/0.13.12/sbt-launch.jar?_ga=1.169679329.115251517.1477186777 && \
     chmod 775 ./sbt && \
-    ./sbt && \
-    export PATH = "${SCALA_PROJECT}":$PATH
+    ./sbt
 
 #install.sh is copy from https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh
 #and comment "set -e", as build will always fail due to return code not = 1.
 #TODO - try to locate and resolve the fail command
-RUN chmod 775 /home/scala/install.sh
+#RUN chmod 775 /home/scala/install.sh
 
 RUN /home/scala/install.sh
 
+#Specify workding dir for CMD/ENTRYPOINT
 WORKDIR "${SCALA_PROJECT}"
 
 CMD ["zsh"]
