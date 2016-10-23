@@ -22,6 +22,7 @@ main() {
 
   # Only enable exit-on-error after the non-critical colorization stuff,
   # which may fail on systems lacking tput or terminfo
+
   # set -e
 
   CHECK_ZSH_INSTALLED=$(grep /zsh$ /etc/shells | wc -l)

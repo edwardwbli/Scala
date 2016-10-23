@@ -15,13 +15,21 @@ RUN apk add --no-cache --virtual=.build-dependencies wget ca-certificates && \
     apk del .build-dependencies && \
     rm -rf "/tmp/"*
 
-RUN apk add --no-cache --virtual=.build-dependencies curl zsh git && \
-    cd "/tmp" && \
-    sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
-
+RUN apk add --no-cache --virtual=.build-dependencies curl zsh git nano
 
 RUN mkdir /home/scala
 
 ADD ./ /home/scala
+
+#install.sh is copy from https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh
+#and comment "set -e", as build will always fail due to return code not = 1.
+#TODO will try to investigate it
+RUN chmod 775 /home/scala/install.sh
+
+RUN /home/scala/install.sh
+
+RUN cp /home/scala/sbt ~/bin/
+RUN cp /home/scala/*.jar ~/bin/
+RUN ~/bin/sbt
 
 CMD ["zsh"]
