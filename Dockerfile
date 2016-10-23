@@ -17,16 +17,20 @@ RUN apk add --no-cache bash wget ca-certificates curl zsh git nano && \
     ln -s "${SCALA_HOME}/bin/"* "/usr/bin/" && \
     rm -rf "/tmp/"*
 
+#Install sbt for scala
 RUN cd "${SCALA_PROJECT}" && \
     wget -O sbt-launch.jar https://repo.typesafe.com/typesafe/ivy-releases/org.scala-sbt/sbt-launch/0.13.12/sbt-launch.jar?_ga=1.169679329.115251517.1477186777 && \
-    ./sbt
+    chmod 775 ./sbt && \
+    ./sbt && \
+    export PATH = "${SCALA_PROJECT}":$PATH
 
 #install.sh is copy from https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh
 #and comment "set -e", as build will always fail due to return code not = 1.
-#TODO will try to investigate it
+#TODO - try to locate and resolve the fail command
 RUN chmod 775 /home/scala/install.sh
 
 RUN /home/scala/install.sh
 
+WORKDIR "${SCALA_PROJECT}"
 
 CMD ["zsh"]
