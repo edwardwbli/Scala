@@ -24,7 +24,6 @@ RUN apk add --no-cache bash wget ca-certificates curl zsh git nano && \
 #Install sbt for scala
 RUN cd "${SCALA_PROJECT}" && \
     wget -O sbt-launch.jar https://repo.typesafe.com/typesafe/ivy-releases/org.scala-sbt/sbt-launch/0.13.12/sbt-launch.jar?_ga=1.169679329.115251517.1477186777 && \
-    chmod 775 ./sbt && \
     ./sbt
 
 #install.sh is copy from https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh
